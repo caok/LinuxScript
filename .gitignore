@@ -1,0 +1,61 @@
+# OTHERS -------------------------
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.sqlite
+*.sqlite3
+
+# BINARY / GENERATED --------------
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.pyc
+*.swp
+*.sass-cache
+*.diff
+*.err
+*.orig
+*.rej
+*.swo
+*.bak
+*.vi
+*.log
+*~
+
+# OS ---------------------
+._.*
+.DS_Store*
+.cache
+.project
+.settings
+ehthumbs.db
+Icon?
+.Spotlight-V100
+.Trashes
+nbproject
+Thumbs.db
+
+# IDE -------------------
+# XCODE :
+*~.nib
+*.pbxuser
+*.perspective
+*.perspectivev3
+*.xcuserstate
+xcuserdata/
+*.mode1v3
+*.mode2v3
+
+# VERSIONS
+.hg
+.svn
+.CVS
+.idea
