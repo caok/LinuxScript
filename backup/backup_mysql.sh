@@ -7,7 +7,7 @@ USER=root
 PASS=root
 
 # DB=db1 db2 ...
-DB=erp
+DB=dbname
 DATE=$(date "+%Y-%m-%d")
 BACKDIR=/home/rails/backup
 KEEP="90 days"
