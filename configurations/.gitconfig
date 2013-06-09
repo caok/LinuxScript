@@ -1,0 +1,26 @@
+[user]
+  name = xxxx
+  email = xxx@gmail.com
+[alias]
+  co = checkout
+  ci = commit -a -v
+  st = status
+  br = branch
+  throw = reset --hard HEAD
+  throwh = reset --hard HEAD^
+[color]
+  ui = true
+  diff = auto
+  status = auto
+  branch = auto
+[core]
+  editor = vim
+  autocrlf = false
+[apply]
+  whitespace = nowarn
+[format]
+  pretty = %C(yellow)%h%Creset %s %C(red)(%an, %cr)%Creset
+[branch]
+  autosetupmerge = true
+[push]
+  default = current
