@@ -6,6 +6,7 @@
 du -h --max-depth=1
 ```
 
+####ls
 统计某文件夹下目录以及文件的个数(忽略目录中的文件)
 ```sh
 ls -l | wc -l
@@ -23,15 +24,11 @@ ls -l | grep "^d"| wc -l
 ls -lR | grep "^-" | wc -l
 ```
 
-查找当前文件系统中的所有目录并排序
-```sh
-find . -type d | sort
-```
+####find
 查看一个目录树里的文件的体积和修改日期(挨个目录做ls -l)
 ```sh
 find . -type f -ls
 ```
-
 查找指定路径下，文件名包含"report"字段的文件
 ```sh
 find ./app/views/ | grep "report"
@@ -40,5 +37,4 @@ find ./app/views/ | grep "report"
 ```
 find / -type f -name "*.log" | xargs grep "error"
 ```
-
 
