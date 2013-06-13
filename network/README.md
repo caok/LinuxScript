@@ -25,13 +25,15 @@ netstat -lnp | grep :80
 ```sh
 netstat -ant
 ```
-查看路由信息
-```sh
-netstat -rn
-```
 查看当前网络连接状况及各自的程序
 ```sh
 netstat -atnp
+```
+查看路由信息
+```sh
+netstat -rn
+or
+route
 ```
 
 查看域名备案
@@ -46,4 +48,9 @@ dig baidu.com
 Local HTTP server
 ```sh
 python -m SimpleHTTPServer 8080
+```
+
+杀死Nginx进程(杀死某一进程)
+```sh
+for i in `ps aux | grep nginx | grep -v grep | awk {'print $2'}` ; do kill $i; done
 ```
