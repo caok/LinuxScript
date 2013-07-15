@@ -54,3 +54,6 @@ python -m SimpleHTTPServer 8080
 ```sh
 for i in `ps aux | grep nginx | grep -v grep | awk {'print $2'}` ; do kill $i; done
 ```
+
+#### SSH
+[25个必须记住的SSH命令](http://web.itivy.com/article-361-1.html)
