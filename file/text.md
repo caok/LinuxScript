@@ -18,7 +18,7 @@ sed -e '/^$/d' file.txt
 ```sh
 cat /dev/null > file.txt
 ```
-创建一个新的文件(按CTRL+C结束录入)
+创建一个新的文件(按CTRL+d结束录入)
 ```sh
 cat > file.txt
 or
@@ -57,4 +57,21 @@ awk '{ x += $3 } END { print x }' myfile
 假设你有一个文本文件，比如一个web服务器日志，在某些行上有一些值，比如URL中的acct_id参数。如果你想统计每个acct_id的所有请求记录：
 ```sh
 cat access.log | egrep -o ‘acct_id=[0-9]+’ | cut -d= -f2 | sort | uniq -c | sort -rn
+```
+
+在多文件中替换相同的字段
+------------------------
+如果你在多个文件中有个想替换的字段，这里有几种方法去做到。
+
+1.要在当前文件夹下的所有以test打头的文件中，将Windows替换为Linux
+```sh
+perl -i -pe 's/Windows/Linux/;' test*
+```
+2.在当前的文件夹下的所有txt文件中，将Windows替换为Linux
+```sh
+find . -name '*.txt' -print | xargs perl -pi -e's/Windows/Linux/ig' *.txt
+```
+Or
+```sh
+find -type f -name '*.txt' -print0 | xargs --null perl -pi -e 's/Windows/Linux/'
 ```

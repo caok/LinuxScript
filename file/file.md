@@ -28,24 +28,33 @@ ls -l | grep "^d"| wc -l
 ```sh
 ls -lR | grep "^-" | wc -l
 ```
+显示当前文件夹下今天修改过的文件
+```sh
+ls -al --time-style=+%D | grep `date +%D`
+```
 
 ####find
 查看一个目录树里的文件的体积和修改日期(挨个目录做ls -l)
 ```sh
 find . -type f -ls
 ```
+查找当前文件夹下，包含"report"字段的文件
+```sh
+grep -rlI 'report'
+```
 查找指定路径下，文件名包含"report"字段的文件
 ```sh
 find ./app/views/ | grep "report"
 ```
 查找制定路径下，在某类文件中包含"error"字段的文件
-```
+```sh
 find / -type f -name "*.log" | xargs grep "error"
 ```
+[Linux的五个查找命令](http://www.ruanyifeng.com/blog/2009/10/5_ways_to_search_for_files_using_the_terminal.html)
 
- 将当前目录文件名全部转换成小写
- ```sh
- for i in *; do mv "$i" "$(echo $i|tr A-Z a-z)"; done
- ```
+将当前目录文件名全部转换成小写
+```sh
+for i in *; do mv "$i" "$(echo $i|tr A-Z a-z)"; done
+```
 
 
