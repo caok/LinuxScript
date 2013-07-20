@@ -36,6 +36,26 @@ or
 route
 ```
 
+#### NMAP
+扫描局域网有多少主机处于运行状态
+```sh
+nmap 192.168.0.0/24
+or
+nmap 192.168.0.1-254
+```
+扫描某个ip的操作系统
+```sh
+nmap -O 192.168.0.100
+```
+扫描某个ip的固定端口
+```sh
+nmap -p 25 192.168.0.100
+```
+查看某个ip上某个端口用什么程序运行的
+```sh
+nmap -sV 192.168.0.100
+```
+
 查看域名备案
 ```sh
 whois caok1231.com
@@ -51,7 +71,7 @@ dig caok1231.com
 
 Local HTTP server
 ```sh
-python -m SimpleHTTPServer 8080
+python -m SimpleHTTPServer
 ```
 
 杀死Nginx进程(杀死某一进程)
