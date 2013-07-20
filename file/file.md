@@ -50,7 +50,6 @@ find ./app/views/ | grep "report"
 ```sh
 find / -type f -name "*.log" | xargs grep "error"
 ```
-[Linux的五个查找命令](http://www.ruanyifeng.com/blog/2009/10/5_ways_to_search_for_files_using_the_terminal.html)
 
 将当前目录文件名全部转换成小写
 ```sh

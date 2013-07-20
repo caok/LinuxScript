@@ -38,11 +38,15 @@ route
 
 查看域名备案
 ```sh
-whois baidu.com
+whois caok1231.com
+```
+Use the correct whois server
+```sh
+whois -h whois.geektools.com caok1231.com
 ```
 查看域名的dns信息
 ```sh
-dig baidu.com
+dig caok1231.com
 ```
 
 Local HTTP server
