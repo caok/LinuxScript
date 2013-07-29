@@ -13,4 +13,6 @@ Some script I use with my computer.
 
 [Network](https://github.com/caok/LinuxScript/blob/master/network/README.md#)
 
+[Init.d](https://github.com/caok/LinuxScript/blob/master/init.d/README.md#)
+
 [UbuntuSkills](http://wiki.ubuntu.org.cn/UbuntuSkills)
