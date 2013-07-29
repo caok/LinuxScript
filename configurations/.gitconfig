@@ -1,26 +1,36 @@
 [user]
   name = xxxx
-  email = xxx@gmail.com
+  email = xxx@xxx.com
 [alias]
   co = checkout
   ci = commit -a -v
-  st = status
+  st = status -bs 
   br = branch
+  b = branch -vv 
   throw = reset --hard HEAD
   throwh = reset --hard HEAD^
+  l = log --graph --pretty=grb
+  ll = log --graph --pretty=grb --stat
 [color]
   ui = true
   diff = auto
   status = auto
   branch = auto
 [core]
-  editor = vim
-  autocrlf = false
+  excludesfile = ~/.gitignore
+  editor = vim 
+  autocrlf = input
 [apply]
   whitespace = nowarn
-[format]
-  pretty = %C(yellow)%h%Creset %s %C(red)(%an, %cr)%Creset
+[pretty]
+  grb = %C(yellow)%h%Creset %Cgreen(%ar)%Creset %C(bold)<%an>%Creset %C(bold green)%d%Creset %s
 [branch]
   autosetupmerge = true
 [push]
   default = current
+[diff]
+  tool = vimdiff
+  algorithm = histogram
+  mnemonicprefix = true
+[log]
+  decorate = true
