@@ -1,0 +1,13 @@
+echo "------------------------------------------------------------------------"
+echo "install Ubuntu packages......"
+sudo apt-get update
+sudo apt-get install libssl-dev python-software-properties python g++ make
+
+echo "add apt-repository for node.js......"
+sudo add-apt-repository ppa:chris-lea/node.js
+sudo apt-get update
+
+echo "Now install Node.js......"
+sudo apt-get install nodejs
+echo "Node.js install done."
+echo "------------------------------------------------------------------------"
