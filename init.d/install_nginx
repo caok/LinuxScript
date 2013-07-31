@@ -1,0 +1,25 @@
+echo "------------------------------------------------------------------------"
+echo "Install NGINX......"
+VERSION='1.4.1'
+DIR=`pwd`
+cd /tmp
+echo "Download NGINX from nginx.org......"
+curl -O http://nginx.org/download/nginx-$VERSION.tar.gz
+tar zxf nginx-$VERSION.tar.gz
+
+echo "Make install NGINX......"
+cd nginx-$VERSION
+./configure --with-http_ssl_module --with-http_realip_module --with-http_stub_status_module --with-http_gzip_static_module
+make && sudo make install
+echo "NGINX install done......"
+
+echo "Add nginx into /etc/init.d and update service......"
+cd $DIR
+sudo cp nginx /etc/init.d/
+sudo update-rc.d nginx defaults
+sudo service nginx start
+
+echo "Remove installation package......."
+rm -Rf /tmp/nginx-$VERSION/
+rm /tmp/nginx-$VERSION.tar.gz
+echo "------------------------------------------------------------------------"

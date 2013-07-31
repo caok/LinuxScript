@@ -1,5 +1,5 @@
 echo "------------------------------------------------------------------------"
-echo "install Ubuntu packages......"
+echo "Install Ubuntu packages......"
 sudo apt-get update
 sudo apt-get install libssl-dev python-software-properties python g++ make
 
