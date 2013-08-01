@@ -9,3 +9,9 @@ chmod 744 install_nodejs
 chmod 744 install_rvm
 ./install_rvm
 ```
+
+### Install NGINX
+```sh
+chmod 744 install_nginx
+./install_nginx
+```
