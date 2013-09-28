@@ -10,3 +10,9 @@ ruby mailip.rb topic-title yourname@email.com
 ```sh
 ruby mail_backup.rb topic-title yourname@email.com file.tar.gz
 ```
+
+淘宝签到领集分宝和淘金币
+```sh
+gem install capybara # install capybara
+ruby taobao.rb
+```
