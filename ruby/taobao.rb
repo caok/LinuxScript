@@ -27,6 +27,9 @@ def login
     fill_in 'TPL_password', :with => password
     click_button '登录'
   end
+
+  puts "login success."
+  return true
 rescue => e
   puts e
 end
@@ -51,13 +54,16 @@ end
 def etao_sign_in
   visit('http://www.etao.com')
   find('div.ci_receive').click
+  puts "sign in etao success."
 end
 
 def taojinbi
   visit('http://vip.taobao.com')
   find('a.coin-btn').click
+  puts "tao jinbi success."
 end
 
-login
-etao_sign_in
-taojinbi
+if login
+  etao_sign_in
+  taojinbi
+end
