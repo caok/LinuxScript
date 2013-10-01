@@ -9,6 +9,7 @@
 *.zip
 *.sqlite
 *.sqlite3
+ruby/tmall
 
 # BINARY / GENERATED --------------
 *.com
