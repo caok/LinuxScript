@@ -28,9 +28,10 @@ def login
     click_button '登录'
   end
 
-  puts "login success."
+  puts "-----------login success-----------"
   return true
 rescue => e
+  puts "-----------login error-------------"
   puts e
 end
 
