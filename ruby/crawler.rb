@@ -37,6 +37,9 @@ linksdoc.css('div#content-area div.top-university-results-list div.school-list-b
   info_file = File.new(info_path, "w+")
   info_file.puts(info_content.to_html)
   info_file.close
+  if doc.css('div.school-photo-box ul li.school-photo-item a').size > 0
+    system "wget -P #{name} #{info_doc.css('div.school-photo-box ul li.school-photo-item a').first.children[0].attributes.first.last.value}"
+  end
 
   puts "finished ---" + name
 end
