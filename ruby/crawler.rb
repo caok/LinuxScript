@@ -3,43 +3,56 @@ require 'nokogiri'
 require 'open-uri'
 require 'pry'
 
-linksdoc = Nokogiri::HTML(open('http://www.zinch.cn/top/university/world/times-higher-education-world-university-rankings'))
-linksdoc.css('div#content-area div.top-university-results-list div.school-list-block').each do |university|
-  name = university.css('h2.school-name-total a').first.content
-  link = university.css('h2.school-name-total a').first.attributes["href"].value
-  doc = Nokogiri::HTML(open(link))
-  content = doc.css('div.column#content div.section')
-  Dir.mkdir(name)
-  path = [name, name + ".html"].join("/")
-  file = File.new(path, "w+")
-  file.puts(content.to_html)
-  file.close
-  #图片处理
-  #校徽
-  system "wget -P #{name} #{doc.css('div.school-profile-header-logo img').first.attributes["src"].value}"
-  if doc.css('div.statistical-graph').size > 0
-    #录入率
-    system "wget -P #{name} #{doc.css('div.acceptance-rate div.statistical-graph-pic img').first.attributes["src"].value}"
-    #本科生比例
-    system "wget -P #{name} #{doc.css('div.student-ratio div.statistical-graph-pic img').first.attributes["src"].value}"
-    #SAT
-    system "wget -P #{name} #{doc.css('div.sat-scores-range div.statistical-graph-pic img').first.attributes["src"].value}"
-  end
-  #doc.css('div.school-photo-box ul li.school-photo-item').each do |image|
-    #exec "wget -p #{name} #{image_link}"
-  #end
+count = 0
+0.upto(60) do |i|
+  url = "http://www.zinch.cn/ss/us?page=#{i}&sort=fans&order=desc"
+  linksdoc = Nokogiri::HTML(open(url))
+  linksdoc.css('div.zinch-school-search-results-list div.school-list-block').each do |university|
+    name = university.css('div.school-name-total h2 a').first.content
+    link = university.css('div.school-name-total h2 a').first.attributes["href"].value
+    link = "http://www.zinch.cn" + link.rstrip.lstrip.gsub(/ /,"-")
+    doc = Nokogiri::HTML(open(link))
+    content = doc.css('div.column#content div.section')
+    if name.nil? || name.empty?
+      puts "该学校没有中文名，故忽略"
+    elsif(File.exist?(name))
+      puts "该学校文件夹已经存在"
+    else
+      Dir.mkdir(name)
+      path = [name, name + ".html"].join("/")
+      file = File.new(path, "w+")
+      file.puts(content.to_html)
+      file.close
+      #图片处理
+      #校徽
+      system "wget -P #{name} #{doc.css('div.school-profile-header-logo img').first.attributes["src"].value}"
+      if doc.css('div.statistical-graph').size > 0
+        #录入率
+        acceptance_rate = doc.css('div.acceptance-rate div.statistical-graph-pic img').first
+        system "wget -P #{name} #{acceptance_rate.attributes["src"].value}" if acceptance_rate && acceptance_rate.attributes
+        #本科生比例
+        ratio = doc.css('div.student-ratio div.statistical-graph-pic img').first
+        system "wget -P #{name} #{ratio.attributes["src"].value}" if ratio && ratio.attributes
+        #SAT
+        sat_scores_range = doc.css('div.sat-scores-range div.statistical-graph-pic img').first
+        system "wget -P #{name} #{sat_scores_range.attributes["src"].value}" if sat_scores_range && sat_scores_range.attributes
+      end
 
-  #录取要求页面的处理
-  info_link = link + '/info'
-  info_doc = Nokogiri::HTML(open(info_link))
-  info_content = info_doc.css('div.column#content div.section div#content-area div.node-type-undergradschool')
-  info_path = [name, name + "_info.html"].join("/")
-  info_file = File.new(info_path, "w+")
-  info_file.puts(info_content.to_html)
-  info_file.close
-  if doc.css('div.school-photo-box ul li.school-photo-item a').size > 0
-    system "wget -P #{name} #{info_doc.css('div.school-photo-box ul li.school-photo-item a').first.children[0].attributes.first.last.value}"
-  end
+      #录取要求页面的处理
+      info_link = link.rstrip.lstrip.gsub(/ /,"-") + '/info'
+      info_doc = Nokogiri::HTML(open(info_link))
+      info_content = info_doc.css('div.column#content div.section div#content-area div.node-type-undergradschool')
+      info_path = [name, name + "_info.html"].join("/")
+      info_file = File.new(info_path, "w+")
+      info_file.puts(info_content.to_html)
+      info_file.close
+      school_photo_item = info_doc.css('div.school-photo-box ul li.school-photo-item a')
+      if school_photo_item.size > 0 && school_photo_item.first.children.size > 0
+        system "wget -P #{name} #{school_photo_item.first.children[0].attributes.first.last.value}"
+      end
 
-  puts "finished ---" + name
+      count += 1
+      puts "finished ----#{count}----" + name
+    end
+  end
 end
