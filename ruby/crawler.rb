@@ -11,8 +11,6 @@ count = 0
     name = university.css('div.school-name-total h2 a').first.content
     link = university.css('div.school-name-total h2 a').first.attributes["href"].value
     link = "http://www.zinch.cn" + link.rstrip.lstrip.gsub(/ /,"-")
-    doc = Nokogiri::HTML(open(link))
-    content = doc.css('div.column#content div.section')
     if name.nil? || name.empty?
       puts "该学校没有中文名，故忽略"
     elsif(File.exist?(name))
@@ -21,6 +19,8 @@ count = 0
       Dir.mkdir(name)
       path = [name, name + ".html"].join("/")
       file = File.new(path, "w+")
+      doc = Nokogiri::HTML(open(link))
+      content = doc.css('div.column#content div.section')
       file.puts(content.to_html)
       file.close
       #图片处理
