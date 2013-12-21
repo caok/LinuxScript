@@ -16,7 +16,7 @@ include Capybara::DSL
 Capybara.default_driver = :selenium
 Capybara.app_host = 'http://www.taobao.com'
 
-def login
+def login(count = 0)
   username, password = IO.read('tmall').split(':')
 
   visit('http://login.tmall.com')
@@ -28,12 +28,20 @@ def login
     click_button '登录'
   end
 
-  puts "-----------login success-----------"
+  puts "登录成功，开始签到..."
   sleep 2
   return true
 rescue => e
-  puts "-----------login error-------------"
-  puts e
+  if count > 4
+    puts "登录失败!"
+    return
+  else
+    count += 1
+    puts "第#{count}次登录失败，继续尝试登录........"
+    puts e
+    sleep 3
+    retry
+  end
 end
 
 def setup_frame(name)
@@ -55,20 +63,24 @@ end
 
 def maoquan
   visit('http://ka.tmall.com')
-  find('div.right_button').click
-  puts('签到领猫券')
-  sleep 2
+  3.times.each do
+    find('div.right_button').click
+    sleep 2
+  end
+  puts('签到领猫券.')
 rescue
   sleep 5
   retry
 end
 
 def etao_sign_in(jf_count = 0)
-  %w{'http://jf.etao.com', 'http://www.etao.com'}.each do |url|
-    visit('http://www.etao.com')
+  ["http://jf.etao.com", "http://www.etao.com"].each do |url|
+    puts url
+    visit(url)
     find('div.ci_receive').click
     if find('p.message-info', :text => '您今天已经领过了哦！')
       puts "已经签到."
+      return
     elsif find('p.message-info', :text => '恭喜你签到获得1个集分宝！')
       puts "一淘签到."
       return
@@ -81,7 +93,7 @@ rescue
     return
   else
     jf_count += 1
-    puts jf_count
+    puts "第#{jf_count}次领取集分宝失败，继续尝试........"
     sleep 5
     retry
   end
@@ -89,8 +101,12 @@ end
 
 def taojinbi(jinbi_count = 0)
   visit('http://vip.taobao.com')
-  find('a.coin-btn').click
-  puts "领淘金币."
+  if find('a.coin-count')
+    puts "已经领过淘金币."
+  else
+    find('a.get-coinbtn').click
+    puts "领淘金币."
+  end
   sleep 2
 rescue
   if (jinbi_count > 4)
@@ -98,7 +114,7 @@ rescue
     return
   else
     jinbi_count += 1
-    puts jinbi_count
+    puts jinbi_coun "第#{jinbi_count}次领取淘金币失败，继续尝试........"
     sleep 5
     retry
   end
