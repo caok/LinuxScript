@@ -16,3 +16,10 @@ ruby mail_backup.rb topic-title yourname@email.com file.tar.gz
 gem install capybara # install capybara
 ruby taobao.rb
 ```
+
+网页爬虫
+```sh
+crawler.rb
+spider.rb
+mechanize.rb
+```

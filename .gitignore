@@ -10,6 +10,7 @@
 *.sqlite
 *.sqlite3
 ruby/tmall
+ruby/xiaomi
 
 # BINARY / GENERATED --------------
 *.com
