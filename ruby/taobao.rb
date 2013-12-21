@@ -29,6 +29,7 @@ def login
   end
 
   puts "-----------login success-----------"
+  sleep 2
   return true
 rescue => e
   puts "-----------login error-------------"
@@ -52,19 +53,62 @@ def jquerify
   sleep 2
 end
 
-def etao_sign_in
-  visit('http://www.etao.com')
-  find('div.ci_receive').click
-  puts "sign in etao success."
+def maoquan
+  visit('http://ka.tmall.com')
+  find('div.right_button').click
+  puts('签到领猫券')
+  sleep 2
+rescue
+  sleep 5
+  retry
 end
 
-def taojinbi
+def etao_sign_in(jf_count = 0)
+  %w{'http://jf.etao.com', 'http://www.etao.com'}.each do |url|
+    visit('http://www.etao.com')
+    find('div.ci_receive').click
+    if find('p.message-info', :text => '您今天已经领过了哦！')
+      puts "已经签到."
+    elsif find('p.message-info', :text => '恭喜你签到获得1个集分宝！')
+      puts "一淘签到."
+      return
+    end
+    sleep 2
+  end
+rescue
+  if jf_count > 4
+    puts "领取集分宝失败!"
+    return
+  else
+    jf_count += 1
+    puts jf_count
+    sleep 5
+    retry
+  end
+end
+
+def taojinbi(jinbi_count = 0)
   visit('http://vip.taobao.com')
   find('a.coin-btn').click
-  puts "tao jinbi success."
+  puts "领淘金币."
+  sleep 2
+rescue
+  if (jinbi_count > 4)
+    puts "领取淘金币失败!"
+    return
+  else
+    jinbi_count += 1
+    puts jinbi_count
+    sleep 5
+    retry
+  end
 end
 
 if login
-  etao_sign_in
-  taojinbi
+  puts "---------猫  券-------"
+  maoquan
+  puts "---------集分宝-------"
+  etao_sign_in()
+  puts "---------淘金币-------"
+  taojinbi()
 end
