@@ -84,15 +84,18 @@ def etao_sign_in(jf_count = 0)
     elsif find('p.message-info', :text => '恭喜你签到获得1个集分宝！')
       puts "一淘签到."
       return
+    else
+      continue
     end
     sleep 2
   end
-rescue
+rescue => e
   if jf_count > 4
     puts "领取集分宝失败!"
     return
   else
     jf_count += 1
+    puts e
     puts "第#{jf_count}次领取集分宝失败，继续尝试........"
     sleep 5
     retry
@@ -114,7 +117,7 @@ rescue
     return
   else
     jinbi_count += 1
-    puts jinbi_coun "第#{jinbi_count}次领取淘金币失败，继续尝试........"
+    puts "第#{jinbi_count}次领取淘金币失败，继续尝试........"
     sleep 5
     retry
   end
