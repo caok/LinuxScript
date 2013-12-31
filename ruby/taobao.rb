@@ -75,13 +75,12 @@ end
 
 def etao_sign_in(jf_count = 0)
   ["http://jf.etao.com", "http://www.etao.com"].each do |url|
-    puts url
     visit(url)
     find('div.ci_receive').click
-    if find('p.message-info', :text => '您今天已经领过了哦！')
+    if page.has_css?('p.message-info', :text => '您今天已经领过了哦！', :visible => true)
       puts "已经签到."
       return
-    elsif find('p.message-info', :text => '恭喜你签到获得1个集分宝！')
+    elsif page.has_css?('p.message-info', :text => '恭喜你签到获得1个集分宝！', :visible => true)
       puts "一淘签到."
       return
     else
