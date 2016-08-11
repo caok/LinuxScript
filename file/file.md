@@ -56,4 +56,8 @@ find / -type f -name "*.log" | xargs grep "error"
 for i in *; do mv "$i" "$(echo $i|tr A-Z a-z)"; done
 ```
 
-
+####tail
+查看实时日志
+```
+tail -f aa.log
+```
