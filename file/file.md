@@ -49,6 +49,7 @@ find ./app/views/ | grep "report"
 查找制定路径下，在某类文件中包含"error"字段的文件
 ```sh
 find / -type f -name "*.log" | xargs grep "error"
+ find . | xargs grep -ri "error"
 ```
 
 将当前目录文件名全部转换成小写
